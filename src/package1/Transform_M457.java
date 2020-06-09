@@ -1,5 +1,3 @@
-package package1;
-
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -21,20 +19,21 @@ public class Transform_M457
         System.out.println("\n/* --------------Debut-------------- */\n");
 
         // recuperer le fichier a traiter
-        String xmlFile = "/home/goku/Code/Xml/ProjetDocumentStructure/projet/M457.xml";
-        System.out.println(xmlFile);
+        String xmlFile = "C:/Users/Dyhia/Desktop/MyProject/M457.xml";
 
         // construire le parseur
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setValidating(false);
+
         factory.setFeature ("http://xml.org/sax/features/namespaces", false);
         factory.setFeature ("http://xml.org/sax/features/validation", false);
         factory.setFeature ("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
         factory.setFeature ("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
         factory.setSchema(null);
+
         DocumentBuilder parseur = factory.newDocumentBuilder();
         Document doc_src = parseur.parse(xmlFile);
-//        Element racine_src = doc_src.getDocumentElement();
+        Element racine_src = doc_src.getDocumentElement();
         //***********************************************************************************************************
 
         //creation du domImplementation
@@ -49,20 +48,16 @@ public class Transform_M457
         racine_but.appendChild(M457);
 
         //analyse du doc source
-        NodeList p =  doc_src.getElementsByTagName("p");
+        NodeList p =  racine_src.getElementsByTagName("p");
         int len = p.getLength();
         for (int i=0;i<len;i++)
         {
             NodeList p1 = p.item(i).getChildNodes();
-            System.out.println("taille de l'item " + i + "= " + p1.getLength());
-
             for (int j = 0; j < p1.getLength(); j++)
             {
-                // System.out.println("le node Value "+j+" "+p1.item(j).getNodeValue());
                 String out = p1.item(j).getNodeValue();
                 if (out != null)
                 {
-                    System.out.println("aaa " + p1.item(j).getChildNodes());
                     if (i == 14 && j == 62) {continue;}
 
                     Element texte = doc_but.createElement("texte");
@@ -73,7 +68,7 @@ public class Transform_M457
             }
         }
         DOMSource ds = new DOMSource(doc_but);
-        StreamResult res = new StreamResult(new File("/home/goku/Code/Xml/ProjetDocumentStructure/mes sorties/sortie02.xml"));
+        StreamResult res = new StreamResult(new File("C:/Users/Dyhia/Desktop/MyProject/sorties/sortie2.xml"));
         TransformerFactory transform = TransformerFactory.newInstance();
         //Création du transformateur "tr".
         Transformer tr = transform.newTransformer();
