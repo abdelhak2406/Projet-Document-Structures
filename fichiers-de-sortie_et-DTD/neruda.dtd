@@ -1,0 +1,4 @@
+<!ELEMENT poema (titulo, estrofa+)>
+<!ELEMENT estrofa (verso+)>
+<!ELEMENT verso (#PCDATA)>
+<!ELEMENT titulo (#PCDATA)>
