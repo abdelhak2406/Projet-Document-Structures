@@ -14,7 +14,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 
-public class TranSortie1 {
+public class Transform_M674 {
     public static void main(String[] args) throws Exception{
         String xmlFile = "/home/goku/Code/Xml/ProjetDocumentStructure/projet/projet_bis/M674.xml";
         DocumentBuilderFactory parseur0 = DocumentBuilderFactory.newInstance();

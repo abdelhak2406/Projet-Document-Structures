@@ -15,7 +15,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Trans_fiches1
+public class Transform_fiche_1
 {
     public static void main(String[] args) throws  Exception,IOException
     {
