@@ -1,3 +1,4 @@
+package package1;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -13,7 +14,7 @@ import java.io.*;
 
 public class Transform_poeme
 {
-    public static void main(String[] args) throws Exception
+    public static  void transform_poeme(String input, String output) throws Exception
     {
         System.out.println("\n/* --------------Debut-------------- */\n");
 
@@ -28,7 +29,7 @@ public class Transform_poeme
         Element racine_but = doc_but.getDocumentElement();
 
         //Lire le fichier text poeme
-        InputStream flux = new FileInputStream("poeme.txt");
+        InputStream flux = new FileInputStream(input);
         InputStreamReader lecture = new InputStreamReader(flux);
         BufferedReader buffer = new BufferedReader(lecture);
         //System.out.println(buff.readLine());
@@ -65,7 +66,7 @@ public class Transform_poeme
         buffer.close();
 
         DOMSource ds = new DOMSource(doc_but);
-        StreamResult res = new StreamResult(new File("C:/Users/Dyhia/Desktop/MyProject/sorties/neruda.xml"));
+        StreamResult res = new StreamResult(new File(output));
         TransformerFactory transform = TransformerFactory.newInstance();
         //Création du transformateur "tr".
         Transformer tr = transform.newTransformer();

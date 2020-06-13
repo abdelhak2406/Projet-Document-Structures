@@ -1,3 +1,4 @@
+package package1;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -15,13 +16,13 @@ import java.util.HashMap;
 
 public class Transform_fiche_2
 {
-    public static void main(String[] args) throws  Exception,IOException
+    public static void trnasform_fiche2(String input, String output) throws  Exception,IOException
     {
         //Declarations hashmap
         HashMap<String, ArrayList<String>> mon_dico =  new HashMap<>();
 
         //Lire le fichier text fiches
-        InputStream flux = new FileInputStream("fiches.txt");
+        InputStream flux = new FileInputStream(input);
         InputStreamReader lecture = new InputStreamReader(flux);
         BufferedReader buffer = new BufferedReader(lecture);
         //System.out.println(buffer.readLine());
@@ -103,7 +104,7 @@ public class Transform_fiche_2
 
         // Transformer et generer la sortie
         DOMSource ds = new DOMSource(document_but);
-        StreamResult res = new StreamResult(new File("C:/Users/Dyhia/Desktop/MyProject/sorties/fiches2.xml"));
+        StreamResult res = new StreamResult(new File(output));
 
         TransformerFactory transform = TransformerFactory.newInstance();
         //Création du transformateur "tr".

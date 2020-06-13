@@ -1,3 +1,4 @@
+package package1;
 import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -10,7 +11,7 @@ import org.w3c.dom.*;
 
 public class Transform_BoiteDialogue
 {
-    public static void main(String[] args) throws Exception
+    public static void transform_boiteDialogue(String input, String output) throws Exception
     {
         // creation du document
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -24,8 +25,8 @@ public class Transform_BoiteDialogue
         racine_but.setAttribute("xmlns:fx", "http://javafx.com/fxml");
 
         //Lecture du fichier fxml
-        String file="boitedialog.fxml";
-        Document doc_src = parseur.parse(file);
+
+        Document doc_src = parseur.parse(input);
         Element racine_src = doc_src.getDocumentElement();
 
 
@@ -44,7 +45,7 @@ public class Transform_BoiteDialogue
 
         // enregistrer le fichier en sortie et Création du transformateur "tr".
         DOMSource ds = new DOMSource(doc_but);
-        StreamResult res = new StreamResult(new File("C:/Users/Dyhia/Desktop/MyProject/sorties/javafx.xml"));
+        StreamResult res = new StreamResult(new File(output));
         TransformerFactory transform = TransformerFactory.newInstance();
         Transformer tr = transform.newTransformer();
         tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8");

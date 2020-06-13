@@ -1,5 +1,4 @@
 package package1;
-
 import com.sun.org.apache.xml.internal.dtm.ref.DTMNamedNodeMap;
 import com.sun.xml.internal.ws.util.xml.NodeListIterator;
 import org.w3c.dom.*;
@@ -17,14 +16,14 @@ import java.io.*;
 import java.sql.SQLOutput;
 
 public class Transform_Renault {
-    public static void main(String[] args) throws Exception {
+    public static  void transform_renault(String input, String output) throws Exception {
         Document document_src = null;
 
-        String htmlFile = "/home/goku/Code/Xml/ProjetDocumentStructure/projet/projet_bis/poeme/fiches/renault/renault.html";
+
         DocumentBuilderFactory parseur0 = DocumentBuilderFactory.newInstance();
         DocumentBuilder parseur = parseur0.newDocumentBuilder();
 //        System.out.println("avant parse");
-//        document_src =  parseur.parse(htmlFile);
+        document_src =  parseur.parse(input);
 
         // creation du document but
         DOMImplementation domimp = parseur.getDOMImplementation();
@@ -34,13 +33,12 @@ public class Transform_Renault {
         //--------------------------------------------
 
 
-        document_src = (Document) serializeDataIn();
+//        document_src = (Document) serializeDataIn();
 
         //extraire la racine
         Element racineSrc = document_src.getDocumentElement();
 
         System.out.println("apres parse");
-        System.out.println(document_src);
 
         NodeList div = racineSrc.getElementsByTagName("div");
 
@@ -183,7 +181,7 @@ public class Transform_Renault {
 
         }
         DOMSource ds = new DOMSource(document_but);
-        StreamResult res = new StreamResult(new File("/home/goku/Code/Xml/ProjetDocumentStructure/mes sorties/renault0.xml"));
+        StreamResult res = new StreamResult(new File(output));
 
         TransformerFactory transform = TransformerFactory.newInstance();
         //Création du transformateur "tr".

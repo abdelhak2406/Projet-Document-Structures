@@ -15,8 +15,8 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 
 public class Transform_M674 {
-    public static void main(String[] args) throws Exception{
-        String xmlFile = "/home/goku/Code/Xml/ProjetDocumentStructure/projet/projet_bis/M674.xml";
+    public static  void transform_m674(String input, String output) throws Exception{
+        String xmlFile = input;
         DocumentBuilderFactory parseur0 = DocumentBuilderFactory.newInstance();
         System.out.println("adgg");
         parseur0.setValidating(false);
@@ -94,7 +94,7 @@ public class Transform_M674 {
         //************************************
         //La sortie
         DOMSource ds = new DOMSource(document_but);
-        StreamResult res = new StreamResult(new File("/home/goku/Code/Xml/ProjetDocumentStructure/mes sorties/sortie0.xml"));
+        StreamResult res = new StreamResult(new File(output));
 
         TransformerFactory transform = TransformerFactory.newInstance();
         //Création du transformateur "tr".

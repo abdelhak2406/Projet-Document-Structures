@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ProjetDocumentStructure:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ProjetDocumentStructure_jar</output-path>
+    <root id="archive" name="ProjetDocumentStructure.jar">
+      <element id="module-output" name="ProjetDocumentStructure" />
+    </root>
+  </artifact>
+</component>

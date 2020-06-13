@@ -17,14 +17,14 @@ import java.util.HashMap;
 
 public class Transform_fiche_1
 {
-    public static void main(String[] args) throws  Exception,IOException
+    public static  void transform_fiche1(String input, String output) throws  Exception,IOException
     {
         //Declarations hashmap
         HashMap<String, ArrayList<String>> mon_dico =  new HashMap<>();
 
 
         //Lire le fichier text fiches
-        InputStream flux = new FileInputStream("/home/goku/Code/Xml/Projet-Document-Structur-/projet/projet_bis/poeme/fiches/fiches.txt");
+        InputStream flux = new FileInputStream(input);
         InputStreamReader lecture = new InputStreamReader(flux);
         BufferedReader buffer = new BufferedReader(lecture);
         //System.out.println(buff.readLine());
@@ -106,7 +106,7 @@ public class Transform_fiche_1
         // Ecriture
 
         DOMSource ds = new DOMSource(document_but);
-        StreamResult res = new StreamResult(new File("/home/goku/Code/Xml/Projet-Document-Structur-/mes sorties/fichier001.xml"));
+        StreamResult res = new StreamResult(new File(output));
 
         TransformerFactory transform = TransformerFactory.newInstance();
         //Création du transformateur "tr".
@@ -222,6 +222,7 @@ public static void remplissage_langue(Document document_but,HashMap<String, Arra
 
     
 }
+
 public  static void parcour_liste(String[] lis){
     for (int i = 0; i < lis.length; i++) {
         System.out.println("element "+i+"\n"+lis[i]);

@@ -1,3 +1,4 @@
+package package1;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -14,7 +15,7 @@ import java.io.File;
 
 public class Transform_M457
 {
-    public static void main(String[] args) throws Exception
+    public static void transform_m457(String input, String output) throws Exception
     {
         System.out.println("\n/* --------------Debut-------------- */\n");
 

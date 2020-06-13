@@ -8,17 +8,14 @@ import java.nio.file.Paths;
 
 public class Main {
     public static void main(String[] args) throws Exception{
+
         if (args.length < 1) {
+            System.out.println("voici notre argment"+args[0]);
             System.out.println("Attention vous avez oublié de spécifier le nom du répertoire à traiter !");
             System.exit(0);
         }
-
-        DocumentBuilderFactory.newInstance().newDocumentBuilder();
         recursiveBrowse(args[0]);
     }
-
-
-
     private static void recursiveBrowse(String dir) throws Exception {
         Path path = Paths.get(dir);
 
@@ -29,24 +26,25 @@ public class Main {
                 if(Files.isDirectory(entry)){
                     recursiveBrowse(filename);
                 }else if(Files.isRegularFile(entry)) {
-                    if(filename.contains("renault.html")) {
-                        renault.renaultx(filename, "renault.xml");
+                    if(filename.contains("fiches.txt")) {
+                        System.out.println("nous somme entré bitches!");
+                        Transform_fiche_1.transform_fiche1(filename, "mes sorties/fiches1.xml");
+                        Transform_fiche_2.trnasform_fiche2(filename,"mes sorties/fiches2.xml");
                     }
                     if(filename.contains("boitedialog.fxml")){
-                        javafxT.dialog(filename, "javafx.xml");
+                        Transform_BoiteDialogue.transform_boiteDialogue(filename, "mes sorties/javafx.xml");
                     }
                     if(filename.contains("poeme.txt")) {
-                        poema.neruda(filename, "neruda.xml");
+                        Transform_poeme.transform_poeme(filename, "mes sorties/neruda.xml");
                     }
                     if(filename.contains("M457.xml")) {
-                        sorties.sorties(filename, "M457");
+                        Transform_M457.transform_m457(filename, "mes sorties/sortie2.xml");
                     }
                     if(filename.contains("M674.xml")){
-                        sorties.sorties(filename, "M674");
+                        Transform_M674.transform_m674(filename, "mes sorties/sortie1.xml");
                     }
-                    if(filename.contains("fiches.txt")) {
-                        fiches.fiche1(filename, "fiche1.xml");
-                        fiches.fiche2(filename, "fiche2.xml");
+                    if(filename.contains("renault.html")) {
+                        Transform_Renault.transform_renault(filename,"mes sorties/renault.xml");
                     }
                 }
             }
@@ -56,4 +54,6 @@ public class Main {
         }
 
     }
+
+
 }
