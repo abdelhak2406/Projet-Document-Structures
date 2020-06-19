@@ -1,6 +1,5 @@
 package package1;
 
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -28,22 +27,22 @@ public class Main {
                 }else if(Files.isRegularFile(entry)) {
                     if(filename.contains("fiches.txt")) {
                         System.out.println("nous somme entré bitches!");
-                        Transform_fiche_2.transform_fiches(filename, "fiches1.xml","fiches2.xml");
+                        Transform_fiches.transform_fiches(filename, "fiches1.xml","fiches2.xml");
                     }
                     if(filename.contains("boitedialog.fxml")){
-//                        Transform_BoiteDialogue.transform_boiteDialogue(filename, "javafx.xml");
+                        Transform_BoiteDialogue.transform_boiteDialogue(filename, "javafx.xml");
                     }
                     if(filename.contains("poeme.txt")) {
-//                        Transform_poeme.transform_poeme(filename, "neruda.xml");
+                        Transform_poeme.transform_poeme(filename, "neruda.xml");
                     }
                     if(filename.contains("M457.xml")) {
-//                        Transform_M457.transform_m457(filename, "sortie2.xml");
+                        Transform_M457.transform_m457(filename, "sortie2.xml");
                     }
                     if(filename.contains("M674.xml")){
-//                        Transform_M674.transform_m674(filename, "sortie1.xml");
+                        Transform_M674.transform_m674(filename, "sortie1.xml");
                     }
                     if(filename.contains("renault.html")) {
-//                        Transform_Renault.transform_renault(filename,"renault.xml");
+                        Transform_Renault.transform_renault(filename,"renault.xml");
                     }
                 }
             }

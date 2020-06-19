@@ -4,33 +4,31 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Transform_fiche_2
+import static package1.Output_creation_et_repetitif.createParser;
+import static package1.Output_creation_et_repetitif.creation_sortie;
+
+public class Transform_fiches
 {
     public static int fichesX ;
 
 
     public static void transform_fiches(String input, String output1,String output2) throws Exception {
         System.out.println("\nnous sommes dans le premier\n");
-        transform_fiche2( input, output1);
-        transform_fiche2( input, output2);
+        transform_ficheX( input, output1);
+        transform_ficheX( input, output2);
     }
 
-    public static void transform_fiche2(String input, String output) throws  Exception,IOException
+    public static void transform_ficheX(String input, String output) throws  Exception,IOException
     {
         if(output.equals("fiches1.xml"))
             fichesX = 1;
         else
             fichesX = 2;
+
         //Declarations hashmap
         HashMap<String, ArrayList<String>> mon_dico =  new HashMap<>();
 
@@ -38,13 +36,12 @@ public class Transform_fiche_2
         InputStream flux = new FileInputStream(input);
         InputStreamReader lecture = new InputStreamReader(flux);
         BufferedReader buffer = new BufferedReader(lecture);
-        //System.out.println(buffer.readLine());
 
         String ligne;
         int i = -1;
-        //System.out.println(mon_dico.get("header1"));
+
         ligne = buffer.readLine();
-        //System.out.println(ligne);
+
 
         //lecture et extraction
         while(  ligne != null )
@@ -97,8 +94,9 @@ public class Transform_fiche_2
         }
 
 
-        // Creation du document but
-        DocumentBuilder parseur = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        // Creation du parseur
+        DocumentBuilder parseur = createParser();
+
         DOMImplementation domimp = parseur.getDOMImplementation();
         Document document_but = domimp.createDocument(null, "FICHES", null);
         document_but.setXmlStandalone(true);
@@ -113,21 +111,8 @@ public class Transform_fiche_2
             remplissage(document_but, mon_dico, fich,"header"+i,"Arabe"+i,"Francais"+i);
         }
 
-
-
         // Transformer et generer la sortie
-        DOMSource ds = new DOMSource(document_but);
-        StreamResult res = new StreamResult(new File(output));
-
-        TransformerFactory transform = TransformerFactory.newInstance();
-        //Création du transformateur "tr".
-        Transformer tr = transform.newTransformer();
-        //************************************************
-        tr.setOutputProperty(OutputKeys.INDENT, "yes");
-        tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-        tr.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC,"yes");
-        tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-        tr.transform(ds, res);
+        creation_sortie(output,document_but);
 
    }
 
@@ -161,9 +146,9 @@ public class Transform_fiche_2
         Element langue = document_but.createElement("Langue");
         langue.setAttribute("id","AR");
         fich.appendChild(langue);
-        System.out.println("avant l'appel pour arrabe");
+
         remplissage_langue( document_but, mon_dico, langue, head,ar);
-//        System.out.println("avant l'appel pour francais");
+
         langue = document_but.createElement("Langue");
         langue.setAttribute("id","FR");
         fich.appendChild(langue);
@@ -200,7 +185,7 @@ public class Transform_fiche_2
         langue.appendChild(nt);
 
 
-        //Traitement particulier pour les dernieres lignes
+        //Traitement particulier pour les dernieres lignes(rf)
         Element rf = null;
         String [] liste = null;
         //la cas spécial ou il faut inverser ...
@@ -209,12 +194,13 @@ public class Transform_fiche_2
 
         //Construction de la chaine inversée à afficher.
         String inverStr="";
-        for(int j=s.length()-1;j>0;j--){
-            if(s.charAt(j)==':') inverStr=inverStr+s.charAt(j-3)+s.charAt(j-2)+" : ";}
+        for(int j=s.length()-1;j>0;j--)
+        {
+            if(s.charAt(j)==':')
+                inverStr=inverStr+s.charAt(j-3)+s.charAt(j-2)+" : ";
+        }
 
-
-
-//    System.out.println("taille\n"+liste.length);
+        //gerer les cas special et probleme d'indentation
         rf = document_but.createElement("RF");
         if (lan.matches("Arabe[013]"))
             rf.appendChild(document_but.createTextNode("RF | "+inverStr+liste[0]+"\t \t"));
@@ -228,12 +214,11 @@ public class Transform_fiche_2
                 rf.appendChild(document_but.createTextNode("RF | "+inverStr+liste[0]+"\t\t"));
 
         langue.appendChild(rf);
-
+        //le reste des rf
         for(int i=6;i<mon_dico.get(lan).size();i++ )
         {
             liste = mon_dico.get(lan).get(i).split("\t");
             System.out.println("la boucle i= "+i);
-            parcour_liste(liste);
             rf = document_but.createElement("RF");
             rf.appendChild(document_but.createTextNode("RF | "+liste[liste.length-1]+" "+liste[0]+"\t\t"));
             langue.appendChild(rf);
@@ -241,13 +226,5 @@ public class Transform_fiche_2
 
 
     }
-    public  static void parcour_liste(String[] lis)
-    {
-        for (int i = 0; i < lis.length; i++)
-        {
-            System.out.println("element "+i+"\n"+lis[i]);
-        }
-    }
-
 
 }

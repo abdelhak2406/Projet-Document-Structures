@@ -1,15 +1,8 @@
 package package1;
-import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.*;
-
 import static package1.Output_creation_et_repetitif.*;
+
 
 public class Transform_BoiteDialogue
 {
@@ -39,7 +32,6 @@ public class Transform_BoiteDialogue
             elt = doc_but.createElement("texte");
             elt.setAttribute(attr.getName(), "x");
             elt.appendChild(doc_but.createTextNode(attr.getValue()));
-            //elt.setTextContent(attr.getValue());
             racine_but.appendChild(elt);
         }
         recursive(racine_src,elt,racine_but, doc_but);

@@ -27,43 +27,37 @@ public class Output_creation_et_repetitif {
     }
 
     public static Transformer transformations (Transformer tra,String out)
-    {   switch (out){
-        case "sortie1.xml":
-        case "sortie2.xml":
-            //marche pour m674 les autres c'est un peu différent
-            tra.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-            tra.setOutputProperty(OutputKeys.INDENT, "yes");
-            tra.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-            tra.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "dom.dtd");
-            System.out.println("\n\nnous sommes dans sortie1\n\n");
-            System.out.println("valeur de out: "+out);
-            break;
-        case "javafx.xml":
-            tra.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-            tra.setOutputProperty(OutputKeys.INDENT, "yes");
-            tra.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC,"yes");
-            tra.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-            tra.setOutputProperty("{http://xml.apache.org/xalan}indent-amount","4");
-            tra.setOutputProperty(OutputKeys.METHOD, "xml");
-            System.out.println("\n\nnous sommes dans javafx\n\n");
-            System.out.println("valeur de out: "+out);
-        case "neruda.xml":
-            tra.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-            tra.setOutputProperty(OutputKeys.INDENT, "yes");
-            tra.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-            tra.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "neruda.dtd");
-            tra.setOutputProperty(OutputKeys.METHOD, "xml");
-            break;
-        case "renault.xml":
-            tra.setOutputProperty(OutputKeys.INDENT, "yes");
-            tra.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-            tra.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC,"yes");
-            tra.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-            System.out.println("valeur de out: "+out);
-            break;
-        default:
-            System.out.println("\n nAAAAAAAAAAAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    }
+    {
+        tra.setOutputProperty(OutputKeys.INDENT, "yes");
+        tra.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+        switch (out)
+        {
+            case "sortie1.xml":
+            case "sortie2.xml":
+                //marche pour m674 les autres c'est un peu différent
+                tra.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+                tra.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "dom.dtd");
+                System.out.println("\n\nnous sommes dans sortie1\n\n");
+                System.out.println("valeur de out: "+out);
+                break;
+            case "javafx.xml":
+                tra.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC,"yes");
+                tra.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+                tra.setOutputProperty("{http://xml.apache.org/xalan}indent-amount","4");
+                tra.setOutputProperty(OutputKeys.METHOD, "xml");
+                System.out.println("\n\nnous sommes dans javafx\n\n");
+                System.out.println("valeur de out: "+out);
+            case "neruda.xml":
+                tra.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+                tra.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "neruda.dtd");
+                tra.setOutputProperty(OutputKeys.METHOD, "xml");
+                break;
+
+            default://fiches1,2 et renault
+                tra.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC,"yes");
+                tra.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+                System.out.println("valeur de out: "+out);
+        }
 
         return tra;
     }
@@ -72,8 +66,6 @@ public class Output_creation_et_repetitif {
     {
         DocumentBuilder par = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         return par;
-
-
     }
     public static DocumentBuilderFactory setFeatures(DocumentBuilderFactory parseur0) throws ParserConfigurationException {
         parseur0.setValidating(false);
