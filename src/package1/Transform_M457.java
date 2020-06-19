@@ -13,27 +13,21 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 
+import static package1.Output_creation_et_repetitif.creation_sortie;
+import static package1.Output_creation_et_repetitif.setFeatures;
+
 public class Transform_M457
 {
     public static void transform_m457(String input, String output) throws Exception
     {
         System.out.println("\n/* --------------Debut-------------- */\n");
 
-        // recuperer le fichier a traiter
-        String xmlFile = "C:/Users/Dyhia/Desktop/MyProject/M457.xml";
-
         // construire le parseur
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        factory.setValidating(false);
+        DocumentBuilderFactory parseur0 = DocumentBuilderFactory.newInstance();
+        parseur0 = setFeatures(parseur0);
+        DocumentBuilder parseur = parseur0.newDocumentBuilder();
 
-        factory.setFeature ("http://xml.org/sax/features/namespaces", false);
-        factory.setFeature ("http://xml.org/sax/features/validation", false);
-        factory.setFeature ("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
-        factory.setFeature ("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-        factory.setSchema(null);
-
-        DocumentBuilder parseur = factory.newDocumentBuilder();
-        Document doc_src = parseur.parse(xmlFile);
+        Document doc_src = parseur.parse(input);
         Element racine_src = doc_src.getDocumentElement();
         //***********************************************************************************************************
 
@@ -68,17 +62,7 @@ public class Transform_M457
 
             }
         }
-        DOMSource ds = new DOMSource(doc_but);
-        StreamResult res = new StreamResult(new File("C:/Users/Dyhia/Desktop/MyProject/sorties/sortie2.xml"));
-        TransformerFactory transform = TransformerFactory.newInstance();
-        //Création du transformateur "tr".
-        Transformer tr = transform.newTransformer();
-        //************************************************
-        tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-        tr.setOutputProperty(OutputKeys.INDENT, "yes");
-        tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-        tr.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "dom.dtd");
-        tr.transform(ds, res);
+        creation_sortie(output, doc_but) ;
 
     }
 

@@ -16,8 +16,21 @@ import java.util.HashMap;
 
 public class Transform_fiche_2
 {
-    public static void trnasform_fiche2(String input, String output) throws  Exception,IOException
+    public static int fichesX ;
+
+
+    public static void transform_fiches(String input, String output1,String output2) throws Exception {
+        System.out.println("\nnous sommes dans le premier\n");
+        transform_fiche2( input, output1);
+        transform_fiche2( input, output2);
+    }
+
+    public static void transform_fiche2(String input, String output) throws  Exception,IOException
     {
+        if(output.equals("fiches1.xml"))
+            fichesX = 1;
+        else
+            fichesX = 2;
         //Declarations hashmap
         HashMap<String, ArrayList<String>> mon_dico =  new HashMap<>();
 
@@ -116,35 +129,41 @@ public class Transform_fiche_2
         tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
         tr.transform(ds, res);
 
-    }
+   }
 
     public static void remplissage(Document document_but,HashMap<String, ArrayList<String>> mon_dico,Element fich,String head,String ar,String fr)
     {
         System.out.println("head= "+head);
         Element be = document_but.createElement("BE");
-        Element ty = document_but.createElement("TY");
-        Element d0 = document_but.createElement("DO");
-        Element sd = document_but.createElement("SD");
-        Element au = document_but.createElement("AU");
-
-        be.appendChild(document_but.createTextNode(mon_dico.get(head).get(0).replaceAll("BE","")));
-        ty.appendChild(document_but.createTextNode("TY : "+mon_dico.get(head).get(1).replaceAll("TY","")));
-        d0.appendChild(document_but.createTextNode("DO : "+mon_dico.get(head).get(2).replaceAll("DO","")));
-        sd.appendChild(document_but.createTextNode("SD : "+mon_dico.get(head).get(3).replaceAll("SD","")));
-        au.appendChild(document_but.createTextNode("AU : "+mon_dico.get(head).get(4).replaceAll("\tAU","\t")));
-
         fich.appendChild(be);
-        fich.appendChild(ty);
-        fich.appendChild(d0);
-        fich.appendChild(sd);
+        be.appendChild(document_but.createTextNode(mon_dico.get(head).get(0).replaceAll("BE","")));
+        if (fichesX ==2)
+        {
+            for (int i = 1; i <4 ; i++)
+            {
+                String [] listStr = mon_dico.get(head).get(i).split("\t");
+                Element balise = document_but.createElement(listStr[1]);
+                balise.appendChild(document_but.createTextNode(listStr[1]+" : "+mon_dico.get(head).get(i).replaceAll(listStr[1],"")));
+                fich.appendChild(balise);
+            }
+        }else
+            {
+                Element ty = document_but.createElement("TY");
+                ty.appendChild(document_but.createTextNode("TY : "+mon_dico.get(head).get(1).replaceAll("TY","")));
+                fich.appendChild(ty);
+            }
+
+        Element au = document_but.createElement("AU");
+        au.appendChild(document_but.createTextNode("AU : "+mon_dico.get(head).get(4).replaceAll("\tAU","\t")));
         fich.appendChild(au);
+
 
         Element langue = document_but.createElement("Langue");
         langue.setAttribute("id","AR");
         fich.appendChild(langue);
         System.out.println("avant l'appel pour arrabe");
         remplissage_langue( document_but, mon_dico, langue, head,ar);
-        System.out.println("avant l'appel pour francais");
+//        System.out.println("avant l'appel pour francais");
         langue = document_but.createElement("Langue");
         langue.setAttribute("id","FR");
         fich.appendChild(langue);
@@ -152,6 +171,16 @@ public class Transform_fiche_2
     }
     public static void remplissage_langue(Document document_but,HashMap<String, ArrayList<String>> mon_dico,Element langue,String head,String lan)
     {
+        if(fichesX == 1)
+        {
+            Element d0 = document_but.createElement("DO");
+            d0.appendChild(document_but.createTextNode("DO : "+mon_dico.get(head).get(2).replaceAll("DO","")));
+            langue.appendChild(d0);
+            Element sd = document_but.createElement("SD");
+            sd.appendChild(document_but.createTextNode("SD : "+mon_dico.get(head).get(3).replaceAll("SD","")));
+            langue.appendChild(sd);
+        }
+        
         Element ve = document_but.createElement("VE");
         ve.appendChild(document_but.createTextNode("VE : "+mon_dico.get(lan).get(1).replaceAll("VE :","")));
         langue.appendChild(ve);
@@ -179,20 +208,24 @@ public class Transform_fiche_2
         String s = liste[1];
 
         //Construction de la chaine inversée à afficher.
-        String _s="";
-        for(int $=s.length()-1;$>0;$--){
-            if(s.charAt($)==':') _s=_s+s.charAt($-3)+s.charAt($-2)+" : ";}
-        System.out.println("le _s: "+_s);
+        String inverStr="";
+        for(int j=s.length()-1;j>0;j--){
+            if(s.charAt(j)==':') inverStr=inverStr+s.charAt(j-3)+s.charAt(j-2)+" : ";}
+
 
 
 //    System.out.println("taille\n"+liste.length);
         rf = document_but.createElement("RF");
-        if (lan.matches("Arabe(.)"))
-            rf.appendChild(document_but.createTextNode("RF | "+_s+liste[0]+"\t \t"));
-        else if(lan.matches("Francais3"))
-            rf.appendChild(document_but.createTextNode("RF | "+_s+liste[0]+"\t  \t"));
-        else
-            rf.appendChild(document_but.createTextNode("RF | "+_s+liste[0]+"\t\t"));
+        if (lan.matches("Arabe[013]"))
+            rf.appendChild(document_but.createTextNode("RF | "+inverStr+liste[0]+"\t \t"));
+        else if (lan.matches("Arabe2"))
+        {
+            rf.appendChild(document_but.createTextNode("RF | " + inverStr + liste[0] + "\t   \t"));
+        }
+            else if(lan.matches("Francais3"))
+                    rf.appendChild(document_but.createTextNode("RF | "+inverStr+liste[0]+"\t  \t"));
+            else
+                rf.appendChild(document_but.createTextNode("RF | "+inverStr+liste[0]+"\t\t"));
 
         langue.appendChild(rf);
 

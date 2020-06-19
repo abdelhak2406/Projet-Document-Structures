@@ -9,13 +9,14 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.*;
 
+import static package1.Output_creation_et_repetitif.*;
+
 public class Transform_BoiteDialogue
 {
     public static void transform_boiteDialogue(String input, String output) throws Exception
     {
         // creation du document
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder parseur = factory.newDocumentBuilder();
+        DocumentBuilder parseur = createParser();
         DOMImplementation domimp = parseur.getDOMImplementation();
         Document doc_but = domimp.createDocument(null, "Racine", null);
         doc_but.setXmlStandalone(true);
@@ -44,18 +45,8 @@ public class Transform_BoiteDialogue
         recursive(racine_src,elt,racine_but, doc_but);
 
         // enregistrer le fichier en sortie et Création du transformateur "tr".
-        DOMSource ds = new DOMSource(doc_but);
-        StreamResult res = new StreamResult(new File(output));
-        TransformerFactory transform = TransformerFactory.newInstance();
-        Transformer tr = transform.newTransformer();
-        tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-        tr.setOutputProperty(OutputKeys.INDENT, "yes");
-        tr.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC,"yes");
-        tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-        tr.setOutputProperty("{http://xml.apache.org/xalan}indent-amount","4");
-        tr.setOutputProperty(OutputKeys.METHOD, "xml");
-        tr.transform(ds, res);
-
+        //Transformer tr creationTransformeur(output,doc_but);
+        creation_sortie(output,doc_but);
     }
 
     static void recursive (Node n,Element elt,Element rac,Document doc)

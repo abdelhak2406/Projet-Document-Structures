@@ -12,6 +12,9 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 
+import static package1.Output_creation_et_repetitif.createParser;
+import static package1.Output_creation_et_repetitif.creation_sortie;
+
 public class Transform_poeme
 {
     public static  void transform_poeme(String input, String output) throws Exception
@@ -20,7 +23,8 @@ public class Transform_poeme
 
         //creation du domImplementation
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder parseur = factory.newDocumentBuilder();
+        DocumentBuilder parseur = createParser();
+
         DOMImplementation domimp = parseur.getDOMImplementation();
         // creation du document
         Document doc_but = domimp.createDocument(null, "poema", null);
@@ -65,18 +69,7 @@ public class Transform_poeme
         }
         buffer.close();
 
-        DOMSource ds = new DOMSource(doc_but);
-        StreamResult res = new StreamResult(new File(output));
-        TransformerFactory transform = TransformerFactory.newInstance();
-        //Création du transformateur "tr".
-        Transformer tr = transform.newTransformer();
-        //************************************************
-        tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-        tr.setOutputProperty(OutputKeys.INDENT, "yes");
-        tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-        tr.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "neruda.dtd");
-        tr.setOutputProperty(OutputKeys.METHOD, "xml");
-        tr.transform(ds, res);
+        creation_sortie(output,doc_but);
 
     }
 }

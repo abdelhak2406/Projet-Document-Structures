@@ -28,23 +28,22 @@ public class Main {
                 }else if(Files.isRegularFile(entry)) {
                     if(filename.contains("fiches.txt")) {
                         System.out.println("nous somme entré bitches!");
-                        Transform_fiche_1.transform_fiche1(filename, "mes sorties/fiches1.xml");
-                        Transform_fiche_2.trnasform_fiche2(filename,"mes sorties/fiches2.xml");
+                        Transform_fiche_2.transform_fiches(filename, "fiches1.xml","fiches2.xml");
                     }
                     if(filename.contains("boitedialog.fxml")){
-                        Transform_BoiteDialogue.transform_boiteDialogue(filename, "mes sorties/javafx.xml");
+//                        Transform_BoiteDialogue.transform_boiteDialogue(filename, "javafx.xml");
                     }
                     if(filename.contains("poeme.txt")) {
-                        Transform_poeme.transform_poeme(filename, "mes sorties/neruda.xml");
+//                        Transform_poeme.transform_poeme(filename, "neruda.xml");
                     }
                     if(filename.contains("M457.xml")) {
-                        Transform_M457.transform_m457(filename, "mes sorties/sortie2.xml");
+//                        Transform_M457.transform_m457(filename, "sortie2.xml");
                     }
                     if(filename.contains("M674.xml")){
-                        Transform_M674.transform_m674(filename, "mes sorties/sortie1.xml");
+//                        Transform_M674.transform_m674(filename, "sortie1.xml");
                     }
                     if(filename.contains("renault.html")) {
-                        Transform_Renault.transform_renault(filename,"mes sorties/renault.xml");
+//                        Transform_Renault.transform_renault(filename,"renault.xml");
                     }
                 }
             }

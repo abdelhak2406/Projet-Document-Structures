@@ -30,7 +30,7 @@ public class Transform_fiche_1
         //System.out.println(buff.readLine());
         String ligne;
         int i = -1;
-        System.out.println(mon_dico.get("header1"));
+//        System.out.println(mon_dico.get("header1"));
         ligne = buffer.readLine();
         //lecture et extraction
         while(  ligne != null )
@@ -38,7 +38,7 @@ public class Transform_fiche_1
 
             if ( ligne.matches("PNR(.*)") )
             {
-                System.out.println("nous somomes dans le pnr");
+//                System.out.println("nous somomes dans le pnr");
 
                 i++;
                 String key = "header"+i;
@@ -49,11 +49,11 @@ public class Transform_fiche_1
                     mon_dico.get(key).add(ligne);
                     ligne = buffer.readLine();
                 }
-                System.out.println("fin du pnr");
+//                System.out.println("fin du pnr");
 
             }else if(ligne.matches("AR(.*)"))
                 {
-                    System.out.println("nous sommes dans le ar");
+//                    System.out.println("nous sommes dans le ar");
 
                     String key = "Arabe"+i;
                     ArrayList<String> tab =  new ArrayList<String>();
@@ -63,10 +63,10 @@ public class Transform_fiche_1
                         mon_dico.get(key).add(ligne);
                         ligne = buffer.readLine();
                     }
-                    System.out.println("fin du ar");
+//                    System.out.println("fin du ar");
                 }else //francais
                 {
-                    System.out.println("nous sommes dans le fr");
+//                    System.out.println("nous sommes dans le fr");
                     String key = "Francais"+i;
                     ArrayList<String> tab =  new ArrayList<String>();
                     mon_dico.put(key,tab);
@@ -80,7 +80,7 @@ public class Transform_fiche_1
                         }
                         ligne = buffer.readLine();
                     }
-                    System.out.println("fin du fr");
+//                    System.out.println("fin du fr");
                 }
         }
         //ecriture
@@ -99,9 +99,7 @@ public class Transform_fiche_1
             rac_but.appendChild(fich);
             remplissage(document_but, mon_dico, fich,"header"+i,"Arabe"+i,"Francais"+i);
         }
-        for (int j = 0; j < 4; j++) {
-             System.out.println(mon_dico.get("Francais"+j).size());
-            }
+
 
         // Ecriture
 
@@ -130,17 +128,20 @@ public static void remplissage(Document document_but,HashMap<String, ArrayList<S
 
     be.appendChild(document_but.createTextNode(mon_dico.get(head).get(0).replaceAll("BE","")));
     ty.appendChild(document_but.createTextNode("TY : "+mon_dico.get(head).get(1).replaceAll("TY","")));
-
     au.appendChild(document_but.createTextNode("AU : "+mon_dico.get(head).get(4).replaceAll("\tAU","\t")));
+
     fich.appendChild(be);
     fich.appendChild(ty);
     fich.appendChild(au);
+
+
+    
     Element langue = document_but.createElement("Langue");
     langue.setAttribute("id","AR");
     fich.appendChild(langue);
-    System.out.println("avant l'appel pour arrabe");
+//    System.out.println("avant l'appel pour arrabe");
     remplissage_langue( document_but, mon_dico, langue, head,ar);
-    System.out.println("avant l'appel pour francais");
+//    System.out.println("avant l'appel pour francais");
     langue = document_but.createElement("Langue");
     langue.setAttribute("id","FR");
     fich.appendChild(langue);
@@ -166,7 +167,7 @@ public static void remplissage_langue(Document document_but,HashMap<String, Arra
     df.appendChild(document_but.createTextNode("DF : "+mon_dico.get(lan).get(2).replaceAll("DF :","")));
     langue.appendChild(df);
 
-    System.out.println(mon_dico.get(lan).get(3));
+//    System.out.println(mon_dico.get(lan).get(3));
 
     Element ph = document_but.createElement("PH");
     ph.appendChild(document_but.createTextNode("PH : "+mon_dico.get(lan).get(3).replaceAll("PH :","")));
@@ -175,7 +176,7 @@ public static void remplissage_langue(Document document_but,HashMap<String, Arra
     nt.appendChild(document_but.createTextNode("NT : "+mon_dico.get(lan).get(4).replaceAll("NT :","")));
     langue.appendChild(nt);
 
-    System.out.println("nous somme avant le for");
+//    System.out.println("nous somme avant le for");
 
     Element rf = null;
     String [] liste = null;
@@ -184,37 +185,38 @@ public static void remplissage_langue(Document document_but,HashMap<String, Arra
     String s = liste[1];
     //Construction de la chaine inversée à afficher.
 
-    String _s="";
-    for(int $=s.length()-1;$>0;$--){
-        if(s.charAt($)==':') _s=_s+s.charAt($-3)+s.charAt($-2)+" : ";}
-    System.out.println("le _s: "+_s);
+    String inverStr="";
+    for(int j=s.length()-1;j>0;j--){
+        if(s.charAt(j)==':') inverStr=inverStr+s.charAt(j-3)+s.charAt(j-2)+" : ";}
+//    System.out.println("le _s: "+inverStr);
 
 
 //    System.out.println("taille\n"+liste.length);
+    //gestion des cas speciale d'indentations
     rf = document_but.createElement("RF");
     if (lan.matches("Arabe[013]"))
-        rf.appendChild(document_but.createTextNode("RF | "+_s+liste[0]+"\t \t"));
+        rf.appendChild(document_but.createTextNode("RF | "+inverStr+liste[0]+"\t \t"));
         else if (lan.matches("Arabe2"))
             {
-                System.out.println("aqlagh i arabe2");
-                rf.appendChild(document_but.createTextNode("RF | " + _s + liste[0] + "\t   \t"));
+//                System.out.println("aqlagh i arabe2");
+                rf.appendChild(document_but.createTextNode("RF | " + inverStr + liste[0] + "\t   \t"));
             }
             else if(lan.matches("Francais3"))
-                rf.appendChild(document_but.createTextNode("RF | "+_s+liste[0]+"\t  \t"));
+                rf.appendChild(document_but.createTextNode("RF | "+inverStr+liste[0]+"\t  \t"));
                 else
-                rf.appendChild(document_but.createTextNode("RF | "+_s+liste[0]+"\t\t"));
+                rf.appendChild(document_but.createTextNode("RF | "+inverStr+liste[0]+"\t\t"));
 
 
     langue.appendChild(rf);
 
 
 
-
+    // le reste
     for(int i=6;i<mon_dico.get(lan).size();i++ )
     {
         liste = mon_dico.get(lan).get(i).split("\t");
-        System.out.println("la boucle i= "+i);
-        parcour_liste(liste);
+//        System.out.println("la boucle i= "+i);
+//        parcour_liste(liste);
         rf = document_but.createElement("RF");
         rf.appendChild(document_but.createTextNode("RF | "+liste[liste.length-1]+" "+liste[0]+"\t\t"));
         langue.appendChild(rf);
