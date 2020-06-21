@@ -1,10 +1,7 @@
 package package1;
 
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.io.File;
+
 public class Main {
     public static void main(String[] args) throws Exception{
 
@@ -14,43 +11,58 @@ public class Main {
         }
 
 
-        recursiveBrowse(args[0]);
+        recursiveBrowse(new File(args[0]));
     }
-    private static void recursiveBrowse(String dir) throws Exception {
-        Path path = Paths.get(dir);
-        try{
-            DirectoryStream<Path> stream = Files.newDirectoryStream(path);
-            for (Path entry : stream){
-                String filename = entry.toString();
-                if(Files.isDirectory(entry)){
-                    recursiveBrowse(filename);
-                }else if(Files.isRegularFile(entry)) {
-                    if(filename.contains("fiches.txt")) {
-                        Transform_fiches.transform_fiches(filename, "fiches1.xml","fiches2.xml");
-                    }
-                    if(filename.contains("boitedialog.fxml")){
-                        Transform_BoiteDialogue.transform_boiteDialogue(filename, "javafx.xml");
-                    }
-                    if(filename.contains("poeme.txt")) {
-                        Transform_poeme.transform_poeme(filename, "neruda.xml");
-                    }
-                    if(filename.contains("M457.xml")) {
-                        Transform_M674_M457.transform_mX(filename, "sortie2.xml");
-                    }
-                    if(filename.contains("M674.xml")){
-                        Transform_M674_M457.transform_mX(filename, "sortie1.xml");
-                    }
-                    if(filename.contains("renault.html")) {
-                        Transform_Renault.transform_renault(filename,"renault.xml");
-                    }
+
+    static void recursiveBrowse(File repertoire) throws Exception {
+
+        String liste[] = repertoire.list();
+
+        if (liste != null) {
+            for (int i = 0; i < liste.length; i++) {
+
+                String s = repertoire+"/"+liste[i];
+
+                File fils = new File(s);
+                if(fils.isDirectory())
+                {
+                    recursiveBrowse(fils);
                 }
-            }
-            stream.close();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+                else
+                    traitementFichier(s);
 
+            }
+        } else {
+            System.err.println("Nom de repertoire invalide");
+        }
     }
 
+   static  void traitementFichier(String s) throws Exception {
+
+        if(s.contains("fiches.txt"))
+        {
+           Transform_fiches.transform_fiches(s, "fiches1.xml","fiches2.xml");
+        }
+        if(s.contains("boitedialog.fxml"))
+        {
+            Transform_BoiteDialogue.transform_boiteDialogue(s, "javafx.xml");
+        }
+        if(s.contains("poeme.txt"))
+        {
+            Transform_poeme.transform_poeme(s, "neruda.xml");
+        }
+        if(s.contains("M457.xml"))
+        {
+            Transform_M674_M457.transform_mX(s, "sortie2.xml");
+        }
+        if(s.contains("M674.xml"))
+        {
+            Transform_M674_M457.transform_mX(s, "sortie1.xml");
+        }
+        if(s.contains("renault.html"))
+        {
+            Transform_Renault.transform_renault(s,"renault.xml");
+        }
+    }
 
 }
