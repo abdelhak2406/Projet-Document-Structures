@@ -27,21 +27,19 @@ public class Transform_Renault {
         //extraire la racine
         Element racineSrc = document_src.getDocumentElement();
 
-        System.out.println("apres parse");
+//        System.out.println("apres parse");
 
         NodeList div = racineSrc.getElementsByTagName("div");
 
 //        System.out.println(div.getLength());
         int len = div.getLength();
         for (int i = 0; i < len; i++) {
-            System.out.println("aaaa");
             Element div0 = (Element) div.item(i);
 
             if (div0.getAttribute("class").equals("post-single")) {//on a truvé le bon div
-                System.out.println("nekchem");
                 NodeList pListe = div0.getElementsByTagName("p");//a la recherche des p
                 StringBuilder ch = new StringBuilder("");
-                /****************************************solution de X **********************************************************/
+
                 boolean first= true;
 
                 for(int l=0; l<pListe.getLength(); l++)

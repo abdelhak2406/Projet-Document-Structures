@@ -19,7 +19,7 @@ public class Transform_poeme
 {
     public static  void transform_poeme(String input, String output) throws Exception
     {
-        System.out.println("\n/* --------------Debut-------------- */\n");
+//        System.out.println("\n/* --------------Debut-------------- */\n");
 
         //creation du domImplementation
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
