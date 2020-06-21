@@ -28,7 +28,7 @@ public class Transform_poeme
         DOMImplementation domimp = parseur.getDOMImplementation();
         // creation du document
         Document doc_but = domimp.createDocument(null, "poema", null);
-        doc_but.setXmlStandalone(true);
+
         //récupération du noeud d'element racine
         Element racine_but = doc_but.getDocumentElement();
 

@@ -17,7 +17,6 @@ public class Transform_fiches
 
 
     public static void transform_fiches(String input, String output1,String output2) throws Exception {
-        System.out.println("\nnous sommes dans le premier\n");
         transform_ficheX( input, output1);
         transform_ficheX( input, output2);
     }
@@ -49,7 +48,7 @@ public class Transform_fiches
 
             if ( ligne.matches("PNR(.*)") )
             {
-                System.out.println("nous sommes dans le pnr");
+//                System.out.println("nous sommes dans le pnr");
                 i++;
                 String key = "header"+i;
                 ArrayList<String> tab =  new ArrayList<String>();
@@ -60,11 +59,11 @@ public class Transform_fiches
                     mon_dico.get(key).add(ligne);
                     ligne = buffer.readLine();
                 }
-                System.out.println("fin du pnr");
+//                System.out.println("fin du pnr");
 
             }else if(ligne.matches("AR(.*)"))
             {
-                System.out.println("nous sommes dans le ar");
+//                System.out.println("nous sommes dans le ar");
 
                 String key = "Arabe"+i;
                 ArrayList<String> tab =  new ArrayList<String>();
@@ -74,10 +73,10 @@ public class Transform_fiches
                     mon_dico.get(key).add(ligne);
                     ligne = buffer.readLine();
                 }
-                System.out.println("fin du ar");
+//                System.out.println("fin du ar");
             }else //francais
             {
-                System.out.println("nous sommes dans le fr");
+//                System.out.println("nous sommes dans le fr");
                 String key = "Francais"+i;
                 ArrayList<String> tab =  new ArrayList<String>();
                 mon_dico.put(key,tab);
@@ -89,7 +88,7 @@ public class Transform_fiches
                     }
                     ligne = buffer.readLine();
                 }
-                System.out.println("fin du fr");
+//                System.out.println("fin du fr");
             }
         }
 
@@ -99,7 +98,6 @@ public class Transform_fiches
 
         DOMImplementation domimp = parseur.getDOMImplementation();
         Document document_but = domimp.createDocument(null, "FICHES", null);
-        document_but.setXmlStandalone(true);
         Element rac_but = document_but.getDocumentElement();
 
         //Remplissage du document_but
@@ -118,7 +116,7 @@ public class Transform_fiches
 
     public static void remplissage(Document document_but,HashMap<String, ArrayList<String>> mon_dico,Element fich,String head,String ar,String fr)
     {
-        System.out.println("head= "+head);
+//        System.out.println("head= "+head);
         Element be = document_but.createElement("BE");
         fich.appendChild(be);
         be.appendChild(document_but.createTextNode(mon_dico.get(head).get(0).replaceAll("BE","")));
@@ -218,7 +216,7 @@ public class Transform_fiches
         for(int i=6;i<mon_dico.get(lan).size();i++ )
         {
             liste = mon_dico.get(lan).get(i).split("\t");
-            System.out.println("la boucle i= "+i);
+//            System.out.println("la boucle i= "+i);
             rf = document_but.createElement("RF");
             rf.appendChild(document_but.createTextNode("RF | "+liste[liste.length-1]+" "+liste[0]+"\t\t"));
             langue.appendChild(rf);

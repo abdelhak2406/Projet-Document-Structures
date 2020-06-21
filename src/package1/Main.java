@@ -4,20 +4,20 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
+import java.io.File;
 public class Main {
     public static void main(String[] args) throws Exception{
 
         if (args.length < 1) {
-            System.out.println("voici notre argment"+args[0]);
             System.out.println("Attention vous avez oublié de spécifier le nom du répertoire à traiter !");
             System.exit(0);
         }
+
+
         recursiveBrowse(args[0]);
     }
     private static void recursiveBrowse(String dir) throws Exception {
         Path path = Paths.get(dir);
-
         try{
             DirectoryStream<Path> stream = Files.newDirectoryStream(path);
             for (Path entry : stream){
@@ -26,7 +26,6 @@ public class Main {
                     recursiveBrowse(filename);
                 }else if(Files.isRegularFile(entry)) {
                     if(filename.contains("fiches.txt")) {
-                        System.out.println("nous somme entré bitches!");
                         Transform_fiches.transform_fiches(filename, "fiches1.xml","fiches2.xml");
                     }
                     if(filename.contains("boitedialog.fxml")){
@@ -36,10 +35,10 @@ public class Main {
                         Transform_poeme.transform_poeme(filename, "neruda.xml");
                     }
                     if(filename.contains("M457.xml")) {
-                        Transform_M457.transform_m457(filename, "sortie2.xml");
+                        Transform_M674_M457.transform_mX(filename, "sortie2.xml");
                     }
                     if(filename.contains("M674.xml")){
-                        Transform_M674.transform_m674(filename, "sortie1.xml");
+                        Transform_M674_M457.transform_mX(filename, "sortie1.xml");
                     }
                     if(filename.contains("renault.html")) {
                         Transform_Renault.transform_renault(filename,"renault.xml");

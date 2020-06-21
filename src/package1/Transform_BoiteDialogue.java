@@ -12,7 +12,7 @@ public class Transform_BoiteDialogue
         DocumentBuilder parseur = createParser();
         DOMImplementation domimp = parseur.getDOMImplementation();
         Document doc_but = domimp.createDocument(null, "Racine", null);
-        doc_but.setXmlStandalone(true);
+
 
         //creation du noeud d'element racine
         Element racine_but = doc_but.getDocumentElement();
@@ -37,7 +37,6 @@ public class Transform_BoiteDialogue
         recursive(racine_src,elt,racine_but, doc_but);
 
         // enregistrer le fichier en sortie et Création du transformateur "tr".
-        //Transformer tr creationTransformeur(output,doc_but);
         creation_sortie(output,doc_but);
     }
 
@@ -56,6 +55,7 @@ public class Transform_BoiteDialogue
                 }
                 recursive(e, elt, rac, doc);
             }
+
     }
 
 

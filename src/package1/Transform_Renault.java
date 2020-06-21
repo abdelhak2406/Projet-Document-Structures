@@ -17,7 +17,7 @@ public class Transform_Renault {
         // creation du document but
         DOMImplementation domimp = parseur.getDOMImplementation();
         Document document_but = domimp.createDocument(null, "Concessionnaires", null);
-        document_but.setXmlStandalone(true);
+
         Element rac_but = document_but.getDocumentElement();
         //--------------------------------------------
 

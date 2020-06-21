@@ -1,0 +1,4 @@
+<!ELEMENT TEI_S (M674.xml|M457.xml)>
+<!ELEMENT M674.xml (texte+)>
+<!ELEMENT M457.xml (texte+)>
+<!ELEMENT texte (#PCDATA)>
