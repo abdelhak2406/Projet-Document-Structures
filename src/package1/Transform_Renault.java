@@ -36,7 +36,7 @@ public class Transform_Renault {
         for (int i = 0; i < len; i++) {
             Element div0 = (Element) div.item(i);
 
-            if (div0.getAttribute("class").equals("post-single")) {//on a truvé le bon div
+            if (div0.getAttribute("class").equals("post-single")) {//on a trouvé le bon div
                 NodeList pListe = div0.getElementsByTagName("p");//a la recherche des p
                 StringBuilder ch = new StringBuilder("");
 
